@@ -62,8 +62,8 @@ public class FilmStorage {
 
     private void validateDuration(int duration) {
         if (duration < MIN_DURATION) {
-            log.warn(MSG_ERROR_NAME);
-            throw new ValidationException(MSG_ERROR_NAME);
+            log.warn(MSG_ERROR_DURATION);
+            throw new ValidationException(MSG_ERROR_DURATION);
         }
     }
 
