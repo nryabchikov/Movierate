@@ -15,14 +15,18 @@ public class FilmStorage {
 
     private final static Logger log = LoggerFactory.getLogger(FilmStorage.class);
     private final String MSG_ERROR_NAME = "Name should be filled in.";
+    private final String MSG_ERROR_DESCRIPTION = "Description should be shorter than 200 characters.";
+    private final String MSG_ERROR_DATE = "Release date no earlier than December 28, 1895.";
+    private final String MSG_ERROR_DURATION = "Film duration should be positive.";
     private final LocalDate localDate = LocalDate.of(1985, 12, 28);
+    private final int MAX_LENGTH_DESCRIPTION = 200;
+    private final int MIN_DURATION = 0;
 
     private List<Film> listOfFilms = new ArrayList<>();
 
     public Film create(Film film) {
-        //if (validateName(film.getName())) {
-            listOfFilms.add(film);
-        //}
+        validateData(film);
+        listOfFilms.add(film);
         return film;
     }
 
@@ -35,26 +39,38 @@ public class FilmStorage {
         return listOfFilms;
     }
 
-
-
-    public boolean checkData(Film film) {
-        final int MAX_SIZE = 200;
-        final int MIN_DURATION = 0;
-        if (film.getName() == null) {
-            return false;
+    private void validateName(String name) {
+        if (name == null || name.isBlank()) {
+            log.warn(MSG_ERROR_NAME);
+            throw new ValidationException(MSG_ERROR_NAME);
         }
+    }
 
-        if (film.getDescription().length() > MAX_SIZE) {
-            return false;
+    private void validateDescription(String description) {
+        if (description.length() > MAX_LENGTH_DESCRIPTION) {
+            log.warn(MSG_ERROR_NAME);
+            throw new ValidationException(MSG_ERROR_DESCRIPTION);
         }
+    }
 
-        if (film.getDuration() < MIN_DURATION) {
-            return false;
+    private void validateDate(LocalDate date) {
+        if (date.isBefore(localDate)) {
+            log.warn(MSG_ERROR_DATE);
+            throw new ValidationException(MSG_ERROR_DATE);
         }
+    }
 
-        if (film.getReleaseDate().isBefore(localDate)) {
-            return false;
+    private void validateDuration(int duration) {
+        if (duration < MIN_DURATION) {
+            log.warn(MSG_ERROR_NAME);
+            throw new ValidationException(MSG_ERROR_NAME);
         }
-        return true;
+    }
+
+    public void validateData(Film film) {
+        validateName(film.getName());
+        validateDescription(film.getDescription());
+        validateDate(film.getReleaseDate());
+        validateDuration(film.getDuration());
     }
 }
