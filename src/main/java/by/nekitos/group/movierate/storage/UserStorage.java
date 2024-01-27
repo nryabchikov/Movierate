@@ -62,7 +62,7 @@ public class UserStorage {
         }
     }
 
-    private void validateData(User user) {
+    public void validateData(User user) {
         validateEmail(user.getEmail());
         validateLogin(user.getLogin());
         validateName(user);
