@@ -1,7 +1,6 @@
 package by.nekitos.group.movierate.storage;
 
 import by.nekitos.group.movierate.exception.ValidationException;
-import by.nekitos.group.movierate.model.Film;
 import by.nekitos.group.movierate.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
