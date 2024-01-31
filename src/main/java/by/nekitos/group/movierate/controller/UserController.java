@@ -1,7 +1,7 @@
 package by.nekitos.group.movierate.controller;
 
 import by.nekitos.group.movierate.model.User;
-import by.nekitos.group.movierate.storage.UserStorage;
+import by.nekitos.group.movierate.storage.InMemoryUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +11,25 @@ import java.util.Collection;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserStorage userStorage;
+    private final InMemoryUserStorage inMemoryUserStorage;
 
     @Autowired
-    public UserController(UserStorage userStorage) {
-        this.userStorage = userStorage;
+    public UserController(InMemoryUserStorage inMemoryUserStorage) {
+        this.inMemoryUserStorage = inMemoryUserStorage;
     }
 
     @PostMapping
     public User create(@RequestBody User user) {
-        return userStorage.create(user);
+        return inMemoryUserStorage.create(user);
     }
 
     @GetMapping
     public Collection<User> output() {
-        return userStorage.output();
+        return inMemoryUserStorage.output();
     }
 
     @PutMapping
     public User update(@RequestBody User user) {
-        return userStorage.update(user);
+        return inMemoryUserStorage.update(user);
     }
 }

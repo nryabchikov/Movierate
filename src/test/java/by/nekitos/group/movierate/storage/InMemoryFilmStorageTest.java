@@ -9,14 +9,14 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FilmStorageTest {
+class InMemoryFilmStorageTest {
 
-    private FilmStorage filmStorage;
+    private InMemoryFilmStorage inMemoryFilmStorage;
     private Film film;
 
     @BeforeEach
     public void setUpFilmStorage() {
-        filmStorage = new FilmStorage();
+        inMemoryFilmStorage = new InMemoryFilmStorage();
     }
 
     @BeforeEach
@@ -30,9 +30,9 @@ class FilmStorageTest {
         film.setDescription("This is a test film.");
         film.setReleaseDate(LocalDate.now());
         film.setDuration(120);
-        Film createdFilm = filmStorage.create(film);
+        Film createdFilm = inMemoryFilmStorage.create(film);
         assertEquals(film, createdFilm);
-        assertTrue(filmStorage.output().contains(film));
+        assertTrue(inMemoryFilmStorage.output().contains(film));
     }
 
     @Test
@@ -41,7 +41,7 @@ class FilmStorageTest {
         film.setDescription("This is a test film.");
         film.setReleaseDate(LocalDate.now());
         film.setDuration(120);
-        assertThrows(ValidationException.class, () -> filmStorage.create(film));
+        assertThrows(ValidationException.class, () -> inMemoryFilmStorage.create(film));
     }
 
     @Test
@@ -54,7 +54,7 @@ class FilmStorageTest {
             sb.append(i);
         }
         film.setDescription(sb.toString());
-        assertThrows(ValidationException.class, () -> filmStorage.create(film));
+        assertThrows(ValidationException.class, () -> inMemoryFilmStorage.create(film));
     }
 
     @Test
@@ -65,7 +65,7 @@ class FilmStorageTest {
         film.setReleaseDate(localDate);
         film.setDuration(120);
 
-        assertThrows(ValidationException.class, () -> filmStorage.create(film));
+        assertThrows(ValidationException.class, () -> inMemoryFilmStorage.create(film));
     }
 
     @Test
@@ -74,6 +74,6 @@ class FilmStorageTest {
         film.setDescription("This is a test film.");
         film.setReleaseDate(LocalDate.now());
         film.setDuration(-1);
-        assertThrows(ValidationException.class, () -> filmStorage.create(film));
+        assertThrows(ValidationException.class, () -> inMemoryFilmStorage.create(film));
     }
 }

@@ -9,14 +9,14 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserStorageTest {
+class InMemoryUserStorageTest {
 
-    private UserStorage userStorage;
+    private InMemoryUserStorage inMemoryUserStorage;
     private User user;
 
     @BeforeEach
     public void setUpFilmStorage() {
-        userStorage = new UserStorage();
+        inMemoryUserStorage = new InMemoryUserStorage();
     }
 
     @BeforeEach
@@ -30,9 +30,9 @@ class UserStorageTest {
         user.setLogin("Nekitos4");
         user.setName("Nikita");
         user.setBirthday(LocalDate.now());
-        User createdUser = userStorage.create(user);
+        User createdUser = inMemoryUserStorage.create(user);
         assertEquals(user, createdUser);
-        assertTrue(userStorage.output().contains(user));
+        assertTrue(inMemoryUserStorage.output().contains(user));
     }
 
     @Test
@@ -40,9 +40,9 @@ class UserStorageTest {
         user.setLogin("Nekitos4");
         user.setName("Nikita");
         user.setBirthday(LocalDate.now());
-        assertThrows(ValidationException.class, () -> userStorage.create(user));
+        assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
         user.setEmail("nik241104gmail.com");
-        assertThrows(ValidationException.class, () -> userStorage.create(user));
+        assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
     }
 
     @Test
@@ -50,9 +50,9 @@ class UserStorageTest {
         user.setEmail("nik241104@gmail.com");
         user.setName("Nikita");
         user.setBirthday(LocalDate.now());
-        assertThrows(ValidationException.class, () -> userStorage.create(user));
+        assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
         user.setLogin("Nik kflsd");
-        assertThrows(ValidationException.class, () -> userStorage.create(user));
+        assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
     }
 
     @Test
@@ -60,7 +60,7 @@ class UserStorageTest {
         user.setEmail("nik241104@gmail.com");
         user.setLogin("Nekitos4");
         user.setBirthday(LocalDate.now());
-        userStorage.validateData(user);
+        inMemoryUserStorage.validateData(user);
         assertEquals(user.getName(), user.getLogin());
     }
 
@@ -70,6 +70,6 @@ class UserStorageTest {
         user.setLogin("Nekitos4");
         user.setName("Nikita");
         user.setBirthday(LocalDate.of(2025, 12, 21));
-        assertThrows(ValidationException.class, () -> userStorage.create(user));
+        assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
     }
 }
