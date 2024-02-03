@@ -15,3 +15,16 @@ public class User {
     private LocalDate birthday;
     private Set<Integer> friends = new HashSet<>();
 }
+
+/*
+JSON
+
+{
+    "id": 1,
+    "email": "nik241104@gmail.com",
+    "login": "petrt",
+    "name": "fiknes",
+    "birthday": "2004-11-24"
+}
+
+ */

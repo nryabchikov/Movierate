@@ -38,7 +38,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public Collection<Film> output() {
+    public List<Film> output() {
         return listOfFilms;
     }
 
